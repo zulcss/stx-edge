@@ -11,7 +11,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use: 	"stx",
+	Use: 	"stx-builder",
 	Short:	"StarlingX Image Builder",
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		if err := InitLog(); err != nil {
