@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 	log "github.com/sirupsen/logrus"
 	"github.com/zulcss/stx-edge/pkg/images"
+	"github.com/zulcss/stx-edge/pkg/utils"
 )
 
 var (
@@ -46,6 +47,25 @@ func runCreate() error {
 
 	if BuildImage {
 		log.Debug("in Build image")
+		if ImageTag == "" {
+			log.Error("Image Tag is not specified.")
+			os.Exit(-1)
+		}
+		if SourceDir == "" {
+			log.Error("Image source directory not specified.")
+			os.Exit(-1)
+		}
+
+		if utils.PathExists(SourceDir) {
+			log.Infof("Found image source: %s", SourceDir)
+		}
+
+		ctx.ImageTag = ImageTag
+		ctx.ImageSourceDir = SourceDir
+		err := ctx.BuildImage()
+		if err != nil {
+			os.Exit(-1)
+		}
 	}
 	return nil
 }
@@ -54,7 +74,7 @@ func runCreate() error {
 func init() {
 	createImage.PersistentFlags().BoolVarP(&PullImage, "pull", "p", false, "Pull an image from a registry.")
 	createImage.PersistentFlags().BoolVarP(&BuildImage, "build", "b", false, "Build from a local container.")
-	createImage.PersistentFlags().StringVarP(&SourceDir, "source", "s", "images", "Image source directory.")
+	createImage.PersistentFlags().StringVarP(&SourceDir, "source", "s", "", "Image source directory.")
 	createImage.PersistentFlags().StringVarP(&ImageTag, "image", "i", "", "Image tag to pull.")
 	createCommand.AddCommand(createImage)
 }

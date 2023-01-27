@@ -10,6 +10,7 @@ import (
 
 type Image struct { 
 	ImageTag	string
+	ImageSourceDir	string
 }
 
 func NewImageContext() *Image {
@@ -36,6 +37,19 @@ func (i *Image) CreateImage() error {
 	return nil
 }
 
+// Build a local image from a dockerfile
+func (i *Image) BuildImage() error {
+	log.Debug("in BuildImage")
+
+	err := i.ImageCreate()
+	if err != nil {
+		log.Error(err)
+		return nil
+	}
+	
+	return nil
+}
+
 // Pull a docker image from a registry
 func (i *Image) ImageFetch() error {
 	log.Debug("in FetchImage")
@@ -57,4 +71,16 @@ func (i *Image) ImageExists() bool{
 	   return true
 	}
 	return false
+}
+
+func (i *Image) ImageCreate() error {
+	log.Debugf("in ImageCreate")
+
+	out, err := utils.SH(fmt.Sprintf("docker build -t %s %s", i.ImageTag, i.ImageSourceDir))
+	if err != nil {
+		log.Errorf("Failed to build container: %s", out)
+		return err
+	}
+	log.Infof("Succesfully built %s: %s", i.ImageTag, i.ImageSourceDir)
+	return nil
 }
