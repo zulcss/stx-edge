@@ -14,6 +14,7 @@ RUN apt-get update && \
 	parted \
 	curl \
 	btrfs-progs \
+	parted \
 	vim \
 	sudo && \
     rm -rf /var/lib/apt/lists/*
