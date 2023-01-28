@@ -4,6 +4,7 @@ import (
 	"os"
 	"github.com/spf13/cobra"
         "github.com/sirupsen/logrus"
+	"github.com/zulcss/stx-edge/pkg/preflight"
 )
 
 var (
@@ -17,6 +18,8 @@ var rootCmd = &cobra.Command{
 		if err := InitLog(); err != nil {
 			return err
 		}
+
+		preflight.PreflightCheck()
 		return nil
 	},
 }
