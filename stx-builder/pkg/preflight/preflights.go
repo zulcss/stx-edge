@@ -19,7 +19,7 @@ func DockerCheck() {
 
 	path, err := exec.LookPath("docker")
 	if err != nil {
-		log.Error("Docker cli not found")
+		log.Fatal("Docker cli not found")
 	}
 	log.Infof("Docker CLI found: %s", path)
 }
@@ -30,7 +30,7 @@ func PartedCheck() {
 	
 	path, err := exec.LookPath("parted")
 	if err != nil {
-		log.Error("parted is not found")
+		log.Fatal("parted is not found")
 	}
 	log.Infof("Parted found: %s", path)
 }
