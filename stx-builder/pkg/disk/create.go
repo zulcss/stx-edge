@@ -28,25 +28,11 @@ func (d *Disk) CreateDisk() error {
 
 	rootDir, _ := ioutil.TempDir("", "rootfs")
 	log.Infof("Created rootfs: %s", rootDir)
+
+	log.Infof("Creating %s with %s", d.DiskName, d.DiskType)
+	d.CreateDiskFormat()
+	
+	log.Infof("Creating filesystem %s on %s", d.DiskFS, d.DiskName)
+	d.DiskFormat()
 	return nil
-}
-
-func IsValidDisk(diskfs string) bool {
-	log.Debug("in IsValidDisk")
-	switch diskfs {
-	case
-		"btrfs":
-			return true
-	}
-	return false
-}
-
-func IsValidDiskFormat(format string) bool {
-	log.Debug("in IsValidDiskFormat")
-	switch format {
-	case
-		"raw":
-			return true
-	}
-	return false
 }
