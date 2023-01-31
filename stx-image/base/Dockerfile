@@ -13,6 +13,7 @@ RUN apt-get update && \
 	sudo \
 	iproute2 \
 	openssh-server \
+	btrfs-progs \
 	nano \
 	jq \
 	vim && \	

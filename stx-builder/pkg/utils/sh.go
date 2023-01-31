@@ -11,3 +11,10 @@ func SH(c string) (string, error) {
 	o, err := cmd.CombinedOutput()
 	return string(o), err
 }
+
+func CheckUser() bool {
+	if os.Geteuid() != 0 {
+		return false
+	}
+	return true
+}
