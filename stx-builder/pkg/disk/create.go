@@ -40,3 +40,13 @@ func IsValidDisk(diskfs string) bool {
 	}
 	return false
 }
+
+func IsValidDiskFormat(format string) bool {
+	log.Debug("in IsValidDiskFormat")
+	switch format {
+	case
+		"raw":
+			return true
+	}
+	return false
+}

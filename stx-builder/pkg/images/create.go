@@ -23,7 +23,7 @@ func NewImageContext() *Image {
 func (i *Image) CreateImage() error {
 	log.Debug("in CreateImage")
 
-	exist := i.ImageExists()
+	exist := ImageExists(i.ImageTag)
 	if exist {
 		input := confirmation.New("Image already exists, do you want to update it?",
 			confirmation.Undecided)
@@ -63,16 +63,6 @@ func (i *Image) ImageFetch() error {
 	return nil
 }
 
-func (i *Image) ImageExists() bool{
-	log.Debug("in ImageExists")
-	_, err := utils.SH(fmt.Sprintf("docker inspect --type=image %s", i.ImageTag))
-	if err == nil {
-	   log.Infof("Image is present locally: %s", i.ImageTag)
-	   return true
-	}
-	return false
-}
-
 func (i *Image) ImageCreate() error {
 	log.Debugf("in ImageCreate")
 
@@ -83,4 +73,14 @@ func (i *Image) ImageCreate() error {
 	}
 	log.Infof("Succesfully built %s: %s", i.ImageTag, i.ImageSourceDir)
 	return nil
+}
+
+func ImageExists(image string) bool{
+	log.Debug("in ImageExists")
+	_, err := utils.SH(fmt.Sprintf("docker inspect --type=image %s", image))
+	if err == nil {
+	   log.Infof("Image is present locally: %s", image)
+	   return true
+	}
+	return false
 }
