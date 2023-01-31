@@ -2,7 +2,10 @@ package disk
 
 import (
 	"io/ioutil"
+	
 	log "github.com/sirupsen/logrus"
+
+	"github.com/zulcss/stx-edge/pkg/images"
 )
 
 type Disk struct {
@@ -40,8 +43,10 @@ func (d *Disk) CreateDisk() error {
 	log.Infof("Mounting %s on %s", d.DiskName, d.DiskRootDir)
 	d.MountDisk()
 
+	log.Infof("Unpacking %s on %s", d.ImageTag, d.DiskRootDir)
+	images.Unpack(d.ImageTag, d.DiskRootDir)
 
-	log.Info("Unmounting %s from %s", d.DiskName, d.DiskRootDir)
+	log.Infof("Unmounting %s from %s", d.DiskName, d.DiskRootDir)
 	d.UmountDisk()
 	return nil
 }

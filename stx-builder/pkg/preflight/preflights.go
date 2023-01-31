@@ -11,6 +11,9 @@ func PreflightCheck() {
 
 	// Check for parted
 	PartedCheck()
+
+	// Check for luet
+	LuetCheck()
 }
 
 // Check for Docker
@@ -33,4 +36,13 @@ func PartedCheck() {
 		log.Fatal("parted is not found")
 	}
 	log.Infof("Parted found: %s", path)
+}
+
+// Check for Luet
+func LuetCheck() {
+	path, err := exec.LookPath("luet")
+	if err != nil {
+		log.Fatal("luet is not found")
+	}
+	log.Infof("Luet found: %s", path)
 }
