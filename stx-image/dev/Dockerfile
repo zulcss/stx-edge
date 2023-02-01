@@ -11,6 +11,7 @@ RUN apt-get update && \
 	docker.io \
 	golang \
 	build-essential \
+	fdisk \
 	parted \
 	curl \
 	btrfs-progs \
