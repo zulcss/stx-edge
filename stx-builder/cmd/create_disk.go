@@ -17,9 +17,9 @@ var (
 	Output	string
 	// Size of the disk
 	DiskSize	string
-	// Disk format (ext4, btrfs, etc)
+	// Disk format (ext4, etc)
 	DiskFS		string
-	// Type of disk (bare, uefi, qcow2, etc)
+	// Type of disk (raw, gpt, qcow2, etc)
 	DiskType	string
 	// Image to unpack
 	ImgeTag		string

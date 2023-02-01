@@ -12,7 +12,7 @@ func(d *Disk) CreateDiskFormat() {
 	switch d.DiskType {
 	case "raw":
 		d.CreateRawDisk()
-	case "uefi":
+	case "gpt":
 		d.CreateEFIDisk()
 	}
 }
@@ -27,8 +27,8 @@ func (d *Disk) CreateRawDisk() error {
 	return nil
 }
 
-func (d *Disk) CreateEFIDisk() error {
-	log.Debug("in CreateEFIDisk")
+func (d *Disk) CreateGPTisk() error {
+	log.Debug("in CreateGPTDisk")
 
 	// Create a raw disk before running parted
 	d.CreateRawDisk()
@@ -55,7 +55,7 @@ func IsValidDiskFormat(format string) bool {
 	log.Debug("in IsValidDiskFormat")
 	switch format {
 	case
-		"raw", "uefi":
+		"raw", "gpt":
 			return true
 	}
 	return false

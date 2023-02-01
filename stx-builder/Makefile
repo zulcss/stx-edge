@@ -13,4 +13,4 @@ disk:
 		--output disk.img \
 		--size 20G \
 		--format ext4 \
-		--type uefi 
+		--type gpt
