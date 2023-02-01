@@ -27,7 +27,7 @@ func (d *Disk) CreateRawDisk() error {
 	return nil
 }
 
-func (d *Disk) CreateGPTisk() error {
+func (d *Disk) CreateGPTDisk() error {
 	log.Debug("in CreateGPTDisk")
 
 	// Create a raw disk before running parted
