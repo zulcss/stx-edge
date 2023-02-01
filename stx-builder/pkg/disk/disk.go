@@ -13,7 +13,7 @@ func(d *Disk) CreateDiskFormat() {
 	case "raw":
 		d.CreateRawDisk()
 	case "gpt":
-		d.CreateEFIDisk()
+		d.CreateGPTDisk()
 	}
 }
 	
