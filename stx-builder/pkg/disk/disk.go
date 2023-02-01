@@ -12,14 +12,31 @@ func(d *Disk) CreateDiskFormat() {
 	switch d.DiskType {
 	case "raw":
 		d.CreateRawDisk()
+	case "uefi":
+		d.CreateEFIDisk()
 	}
 }
 	
-
 func (d *Disk) CreateRawDisk() error {
-	out, err := utils.SH(fmt.Sprintf("truncate -s %s %s", d.DiskSize, d.DiskName))
+	log.Debug("in CreateRawDisk")
+	_, err := utils.SH(fmt.Sprintf("truncate -s %s %s", d.DiskSize, d.DiskName))
+	if err != nil {
+		log.Errorf("Failed to create disk: %s", err)
+		return err
+	}
+	return nil
+}
+
+func (d *Disk) CreateEFIDisk() error {
+	log.Debug("in CreateEFIDisk")
+
+	// Create a raw disk before running parted
+	d.CreateRawDisk()
+
+	out, err := utils.SH(fmt.Sprintf("parted -s -a optimal %s mklabel gpt", d.DiskName))
 	if err != nil {
 		log.Errorf("Failed to create disk: %s", out)
+		return err
 	}
 	return nil
 }
@@ -38,7 +55,7 @@ func IsValidDiskFormat(format string) bool {
 	log.Debug("in IsValidDiskFormat")
 	switch format {
 	case
-		"raw":
+		"raw", "uefi":
 			return true
 	}
 	return false
