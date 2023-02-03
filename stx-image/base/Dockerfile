@@ -21,7 +21,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m sysadmin && \
-    echo "sysadmin:sysadmin" | chpasswd
+    echo "sysadmin:sysadmin" | chpasswd && \
+    echo "root:root" | chpasswd
 
 COPY --from=luet /usr/bin/luet /usr/bin/luet
 RUN mkdir -p /etc/luet/repos.conf.d && \
