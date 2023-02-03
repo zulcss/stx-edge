@@ -10,10 +10,10 @@ ADD overlay/ /
 RUN apt-get update && \
     apt-get install -y ca-certificates \
 	init \
+	docker.io \
 	procps \
 	sudo \
 	iproute2 \
-	openssh-server \
 	btrfs-progs \
 	nano \
 	jq \
