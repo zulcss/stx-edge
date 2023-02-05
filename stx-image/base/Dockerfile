@@ -28,3 +28,5 @@ COPY --from=luet /usr/bin/luet /usr/bin/luet
 RUN mkdir -p /etc/luet/repos.conf.d && \
   luet repo add stx-test -y --url quay.io/zulcss/stx-test --type docker && \
   luet install -y utils/yip
+RUN echo "localhost" > /etc/hostname && \
+    rm -f /etc/machine-id /var/lib/machine-id
