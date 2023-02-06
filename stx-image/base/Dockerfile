@@ -15,8 +15,9 @@ RUN apt-get update && \
 	sudo \
 	iproute2 \
 	btrfs-progs \
-	nano \
-	jq \
+	sytemd-container \
+	systemd-boot \
+	linux-image-amd64 \
 	vim && \	
     rm -rf /var/lib/apt/lists/*
 

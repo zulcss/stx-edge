@@ -15,6 +15,8 @@ RUN apt-get update && \
 	parted \
 	curl \
 	btrfs-progs \
+	systemd-boot-efi \
+	systemd-boot \
 	parted \
 	vim \
 	sudo && \
